@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom'
 
 
@@ -11,7 +11,7 @@ export default class SearchBooks extends React.Component {
           <div className="search-books">
             <div className="search-books-bar">
               <Link 
-                to="/books"
+                to="/"
                 className="close-search" 
                 
                 >Close</Link>
