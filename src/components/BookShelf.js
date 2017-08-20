@@ -8,26 +8,26 @@ const prettyTitle = shelf => (
   : 'Read')
 
 const BookShelf = (props) => (
-  <div className="bookshelf">
+<div className="bookshelf">
     <h2 className="bookshelf-title">{prettyTitle(props.name)}</h2>
     <div className="bookshelf-books">
-      <ol className="books-grid">
-        {props
-          .books
-          .map((book, i) => (
+        <ol className="books-grid">
+            {props.books.map((book, i) => (
             <li key={i}>
-              <Book
-                id={book.id}
-                title={book.title}
-                authors={book.authors}
-                bookCover={book.imageLinks.smallThumbnail}
-                shelf={book.shelf}
-                changeShelf={props.changeShelf}/>
+                <Book
+                    id={book.id}
+                    title={book.title}
+                    authors={book.authors}
+                    bookCover={book.imageLinks.smallThumbnail}
+                    shelf={book.shelf}
+                    book={book}
+                    changeShelf={props.changeShelf}
+                />
             </li>
-          ))}
-      </ol>
+            ))}
+        </ol>
     </div>
-  </div>
+</div>
 )
 
 BookShelf.propTypes = {

@@ -1,10 +1,13 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
 import BookShelf from '../components/BookShelf';
 
 export default class SearchBooks extends React.Component {
-    
+    static propTypes = {
+        bookShelves: PropTypes.object.isRequired,
+        changeShelf: PropTypes.func.isRequired
+    }
     render() {
         return (
             <div className="list-books">
@@ -19,7 +22,7 @@ export default class SearchBooks extends React.Component {
                             .map((key, i) => (<BookShelf
                                 key={i}
                                 name={key}
-                                changeShelf={this.changeShelf}
+                                changeShelf={this.props.changeShelf}
                                 books={this.props.bookShelves[key]}/>))
 }
                     </div>

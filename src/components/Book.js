@@ -1,11 +1,17 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 
 export default class Book extends React.Component {
 
+    static propTypes = {
+        book: PropTypes.object.isRequired,
+        changeShelf: PropTypes.func.isRequired
+    }
+
     render() {
-        const props = this.props;
-        console.log(this.props)
+        const { book, changeShelf } = this.props;
+        const { title, bookCover, author, shelf } = book;
+        // console.log(this.props)
         return (
 
             <div className="book">
@@ -15,10 +21,14 @@ export default class Book extends React.Component {
                         style={{
                         width: 128,
                         height: 193,
-                        backgroundImage: 'url('+ props.bookCover +')'
+                        backgroundImage: `url(${bookCover})`
                     }}></div>
                     <div className="book-shelf-changer">
-                        <select>
+                        <select
+                            onChange={() => changeShelf(book, this.select.value)}
+                            ref={select => this.select = select}
+                            value={shelf}
+                        >
                             <option value="none" disabled>Move to...</option>
                             <option value="currentlyReading">Currently Reading</option>
                             <option value="wantToRead">Want to Read</option>
@@ -27,8 +37,8 @@ export default class Book extends React.Component {
                         </select>
                     </div>
                 </div>
-                <div className="book-title">{props.title}</div>
-                <div className="book-authors">{props.author}</div>
+                <div className="book-title">{title}</div>
+                <div className="book-authors">{author}</div>
             </div>
         )
     }
