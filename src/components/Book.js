@@ -21,7 +21,7 @@ export default class Book extends React.Component {
                         style={{
                         width: 128,
                         height: 193,
-                        backgroundImage: `url(${bookCover})`
+                        backgroundImage: `url(${this.props.bookCover})`
                     }}></div>
                     <div className="book-shelf-changer">
                         <select
@@ -38,7 +38,7 @@ export default class Book extends React.Component {
                     </div>
                 </div>
                 <div className="book-title">{title}</div>
-                <div className="book-authors">{author}</div>
+                <div className="book-authors">{this.props.authors}</div>
             </div>
         )
     }
