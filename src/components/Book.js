@@ -10,7 +10,7 @@ export default class Book extends React.Component {
 
     render() {
         const { book, changeShelf } = this.props;
-        const { title, bookCover, author, shelf } = book;
+        const { title, shelf } = book;
         // console.log(this.props)
         return (
 

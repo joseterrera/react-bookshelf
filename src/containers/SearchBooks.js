@@ -29,7 +29,12 @@ export default class SearchBooks extends React.Component {
               .books
               .map((book, i) => (
                 <li key={i}>
-                  <Book book={book} changeShelf={this.props.changeShelf}/>
+                  <Book book={book} 
+                  changeShelf={this.props.changeShelf}
+                   title={book.title}
+                    authors={book.authors}
+                    bookCover={book.imageLinks.smallThumbnail}
+                  />
                 </li>
               ))}
           </ol>

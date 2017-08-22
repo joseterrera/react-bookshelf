@@ -41,7 +41,7 @@ class BooksApp extends React.Component {
         : acc
     }
     const filteredBooks = (this.state.books.reduce(reducer(userInput), []))
-    console.log(filteredBooks);
+    // console.log(filteredBooks);
     this.setState({filteredBooks})
 
   }
@@ -88,6 +88,7 @@ class BooksApp extends React.Component {
             books={this.state.filteredBooks}
             changeShelf={this.changeShelf}
             searchBooks={this.searchBooks}
+             bookShelves={this.state.bookShelves}
             /> 
         )} />
      
