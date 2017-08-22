@@ -13,7 +13,7 @@ class BooksApp extends React.Component {
     this.state = {
       bookShelves: {},
       books: [],
-      filteredBooks: [],
+      filteredBooks: [], 
     };
   }
 
@@ -23,6 +23,14 @@ class BooksApp extends React.Component {
       const filteredBooks = books;
       this.setState({books, bookShelves, filteredBooks})
     });
+  }
+
+  execSearch = (query) => {
+    const search = this.filteredBooks = API.search(query).then(books => {
+      // setState only for the current search result.
+      if (this.filteredBooks === search)
+        this.setState({ books })
+    })
   }
 
     searchBooks = (inputValue) => {
@@ -87,8 +95,8 @@ class BooksApp extends React.Component {
             <SearchBooks 
             books={this.state.filteredBooks}
             changeShelf={this.changeShelf}
-            searchBooks={this.searchBooks}
-             bookShelves={this.state.bookShelves}
+            execSearch={this.execSearch}
+             bookShelves={this.state.bookShelves}  
             /> 
         )} />
      

@@ -7,7 +7,7 @@ export default class SearchBooks extends React.Component {
   static propTypes = {
     books: PropTypes.array.isRequired,
     changeShelf: PropTypes.func.isRequired,
-    searchBooks: PropTypes.func.isRequired
+    execSearch: PropTypes.func.isRequired
   }
   render() {
     return (
@@ -18,7 +18,7 @@ export default class SearchBooks extends React.Component {
             <input
               type="text"
               ref={userInput => this.userInput = userInput}
-              onChange={() => this.props.searchBooks(this.userInput.value)}
+               onChange={() => this.props.execSearch(this.userInput.value)}
               placeholder="Search by title or author"/>
           </div>
         </div>
