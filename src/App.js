@@ -20,12 +20,13 @@ class BooksApp extends React.Component {
     componentDidMount() {
     API.getAll().then(books => {
       const bookShelves = this.sortBooks(books);
-      const filteredBooks = books;
+      const filteredBooks = [];
       this.setState({books, bookShelves, filteredBooks})
     });
   }
 
     searchBooks = (inputValue) => {
+     
     const userInput = inputValue.toLowerCase();
     //previously tried with map/filter
     // console.log(userInput)
@@ -43,6 +44,9 @@ class BooksApp extends React.Component {
     const filteredBooks = (this.state.books.reduce(reducer(userInput), []))
     // console.log(filteredBooks);
     this.setState({filteredBooks})
+     if (!inputValue) {
+        this.setState({ filteredBooks: []})
+      }
 
   }
 
