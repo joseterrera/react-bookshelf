@@ -13,7 +13,7 @@ class BooksApp extends React.Component {
     this.state = {
       bookShelves: {},
       books: [],
-      filteredBooks: [], 
+      filteredBooks: [],
     };
   }
 
@@ -25,14 +25,6 @@ class BooksApp extends React.Component {
     });
   }
 
-  execSearch = (query) => {
-    const search = this.filteredBooks = API.search(query).then(books => {
-      // setState only for the current search result.
-      if (this.filteredBooks === search)
-        this.setState({ books })
-    })
-  }
-
     searchBooks = (inputValue) => {
     const userInput = inputValue.toLowerCase();
     //previously tried with map/filter
@@ -41,6 +33,7 @@ class BooksApp extends React.Component {
     //   book.title.toLowerCase()),filter(b => b.indexOf(userInput) >= 0 
     // )
     // console.log(filterBooks);
+
     //also tried it with reduce:
     const reducer = input => (acc, bookObj) => {
       return bookObj.title.toLowerCase().indexOf(input) >= 0 
@@ -50,10 +43,6 @@ class BooksApp extends React.Component {
     const filteredBooks = (this.state.books.reduce(reducer(userInput), []))
     // console.log(filteredBooks);
     this.setState({filteredBooks})
-     if (!inputValue) {
-        this.setState({ filteredBooks: []})
-     }
-    
 
   }
 
@@ -98,8 +87,8 @@ class BooksApp extends React.Component {
             <SearchBooks 
             books={this.state.filteredBooks}
             changeShelf={this.changeShelf}
-            execSearch={this.execSearch}
-             bookShelves={this.state.bookShelves}  
+            searchBooks={this.searchBooks}
+             bookShelves={this.state.bookShelves}
             /> 
         )} />
      
