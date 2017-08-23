@@ -20,7 +20,7 @@ class BooksApp extends React.Component {
     componentDidMount() {
     API.getAll().then(books => {
       const bookShelves = this.sortBooks(books);
-      const filteredBooks = books;
+      const filteredBooks = [];
       this.setState({books, bookShelves, filteredBooks})
     });
   }
