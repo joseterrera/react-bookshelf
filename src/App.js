@@ -20,7 +20,7 @@ class BooksApp extends React.Component {
     componentDidMount() {
     API.getAll().then(books => {
       const bookShelves = this.sortBooks(books);
-      const filteredBooks = books;
+      const filteredBooks = [];
       this.setState({books, bookShelves, filteredBooks})
     });
   }
@@ -41,7 +41,6 @@ class BooksApp extends React.Component {
     //   book.title.toLowerCase()),filter(b => b.indexOf(userInput) >= 0 
     // )
     // console.log(filterBooks);
-
     //also tried it with reduce:
     const reducer = input => (acc, bookObj) => {
       return bookObj.title.toLowerCase().indexOf(input) >= 0 
@@ -51,6 +50,10 @@ class BooksApp extends React.Component {
     const filteredBooks = (this.state.books.reduce(reducer(userInput), []))
     // console.log(filteredBooks);
     this.setState({filteredBooks})
+     if (!inputValue) {
+        this.setState({ filteredBooks: []})
+     }
+    
 
   }
 
