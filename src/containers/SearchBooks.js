@@ -9,7 +9,7 @@ export default class SearchBooks extends React.Component {
     changeShelf: PropTypes.func.isRequired,
     searchBooks: PropTypes.func.isRequired
   }
-  
+
   render() {
     return (
       <div className="search-books">

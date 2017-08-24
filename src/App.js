@@ -1,7 +1,7 @@
 import React from 'react'
 // import { Link } from 'react-router-dom'
-import { Route } from 'react-router-dom'
-import * as API from  './BooksAPI'
+import {Route} from 'react-router-dom'
+import * as API from './BooksAPI'
 import './App.css'
 import SearchBooks from './containers/SearchBooks';
 import ListBooks from './containers/ListBooks';
@@ -13,52 +13,65 @@ class BooksApp extends React.Component {
     this.state = {
       bookShelves: {},
       books: [],
-      filteredBooks: [],
+      filteredBooks: []
     };
   }
 
-    componentDidMount() {
-    API.getAll().then(books => {
-      const bookShelves = this.sortBooks(books);
-      const filteredBooks = [];
-      this.setState({books, bookShelves, filteredBooks})
-    });
+  componentDidMount() {
+    API
+      .getAll()
+      .then(books => {
+        const bookShelves = this.sortBooks(books);
+        const filteredBooks = [];
+        this.setState({books, bookShelves, filteredBooks})
+      });
   }
 
-    searchBooks = (inputValue) => {
+  searchBooks = (inputValue) => {
     const userInput = inputValue.toLowerCase();
-    //previously tried with map/filter
-    // console.log(userInput)
-    // const filterBooks = this.state.books.map(book =>
-    //   book.title.toLowerCase()),filter(b => b.indexOf(userInput) >= 0 
-    // )
-    // console.log(filterBooks);
 
-    //also tried it with reduce:
-    const reducer = input => (acc, bookObj) => {
-      return bookObj.title.toLowerCase().indexOf(input) >= 0 
-        ? acc.concat(bookObj) 
-        : acc
-    }
-    const filteredBooks = (this.state.books.reduce(reducer(userInput), []))
-    // console.log(filteredBooks);
-    this.setState({filteredBooks})
-
+    API.search(userInput, 20).then(filteredBooks => {
+        if (filteredBooks && filteredBooks.error ) {
+          this.setState({filteredBooks: []})
+        } else {
+          this.setState({filteredBooks})
+        }
+      })
   }
+
+  //   searchBooks = (inputValue) => {   
+  //     const userInput = inputValue.toLowerCase();   
+  //     //previously tried with map/filter   //
+  // console.log(userInput)  
+  //  // const filterBooks = this.state.books.map(book =>
+  //  //   book.title.toLowerCase()),filter(b => b.indexOf(userInput) >= 0   // )
+  //  // console.log(filterBooks);   
+  //  //also tried it with reduce:   
+  //  const reducer= input => (acc, bookObj) => {     
+  //    return bookObj.title.toLowerCase().indexOf(input) >= 0       
+  //     ? acc.concat(bookObj)
+  //     : acc   }   
+  //     const filteredBooks = (this.state.books.reduce(reducer(userInput), []))   //
+  //     console.log(filteredBooks);   
+  // }
 
   changeShelf = (book, status) => {
     const books = [...this.state.books];
 
     books.forEach(b => {
-      if(b.id === book.id) {
+      if (b.id === book.id) {
         b.shelf = status;
       }
     });
 
     const bookShelves = this.sortBooks(books);
     //console.log(books, bookShelves);
-    this.setState({ books, bookShelves }, () => {
-      API.update(book, status)
+    this.setState({
+      books,
+      bookShelves
+    }, () => {
+      API
+        .update(book, status)
         .then(r => console.log('Shell updated', r))
     });
   }
@@ -78,20 +91,18 @@ class BooksApp extends React.Component {
   render() {
     return (
       <div className="app">
-            <Route exact path="/" render={() => (
-           <ListBooks 
-              bookShelves={this.state.bookShelves}
-              changeShelf={this.changeShelf}/>
-        )} />
-           <Route exact path="/search" render={() => (
-            <SearchBooks 
-            books={this.state.filteredBooks}
-            changeShelf={this.changeShelf}
-            searchBooks={this.searchBooks}
-             bookShelves={this.state.bookShelves}
-            /> 
-        )} />
-     
+        <Route
+          exact
+          path="/"
+          render={() => (<ListBooks bookShelves={this.state.bookShelves} changeShelf={this.changeShelf}/>)}/>
+        <Route
+          exact
+          path="/search"
+          render={() => (<SearchBooks
+          books={this.state.filteredBooks}
+          changeShelf={this.changeShelf}
+          searchBooks={this.searchBooks}
+          bookShelves={this.state.bookShelves}/>)}/>
 
       </div>
     )
