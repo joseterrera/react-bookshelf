@@ -27,12 +27,22 @@ class BooksApp extends React.Component {
   }
 
   searchBooks = (inputValue) => {
+    const books = this.state.books;
     const userInput = inputValue.toLowerCase();
     if(userInput !== '') {
     API.search(userInput, 20).then(filteredBooks => {
+        console.log(filteredBooks);
         if (!(!!filteredBooks) || filteredBooks.error ) {
           this.setState({filteredBooks: []})
         } else {
+          filteredBooks = filteredBooks.map(book => {
+            book.shelf = "none";
+            books.forEach(b => {
+              if(b.id === book.id)
+                book.shelf = b.shelf;
+            })
+            return book;
+          })
           this.setState({filteredBooks})
         }
       })
