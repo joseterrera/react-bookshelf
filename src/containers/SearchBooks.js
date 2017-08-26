@@ -34,7 +34,7 @@ export default class SearchBooks extends React.Component {
                   changeShelf={this.props.changeShelf}
                    title={book.title}
                     authors={book.authors}
-                    bookCover={book.imageLinks.smallThumbnail}
+                    bookCover={book.imageLinks && book.imageLinks.smallThumbnail}
                   />
                 </li>
               ))}

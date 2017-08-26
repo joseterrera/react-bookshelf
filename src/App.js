@@ -7,7 +7,6 @@ import SearchBooks from './containers/SearchBooks';
 import ListBooks from './containers/ListBooks';
 
 class BooksApp extends React.Component {
-
   constructor() {
     super();
     this.state = {
@@ -29,14 +28,15 @@ class BooksApp extends React.Component {
 
   searchBooks = (inputValue) => {
     const userInput = inputValue.toLowerCase();
-
+    if(userInput !== '') {
     API.search(userInput, 20).then(filteredBooks => {
-        if (filteredBooks && filteredBooks.error ) {
+        if (!(!!filteredBooks) || filteredBooks.error ) {
           this.setState({filteredBooks: []})
         } else {
           this.setState({filteredBooks})
         }
       })
+    }
   }
 
   //   searchBooks = (inputValue) => {   
@@ -57,12 +57,20 @@ class BooksApp extends React.Component {
 
   changeShelf = (book, status) => {
     const books = [...this.state.books];
+    let booksFound = false;
 
     books.forEach(b => {
       if (b.id === book.id) {
         b.shelf = status;
+        booksFound = true;
       }
     });
+
+    if(!booksFound) {
+      book.shelf = status;
+      books.push(book);
+
+    }
 
     const bookShelves = this.sortBooks(books);
     //console.log(books, bookShelves);

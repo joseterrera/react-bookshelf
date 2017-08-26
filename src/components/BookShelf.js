@@ -18,7 +18,7 @@ const BookShelf = (props) => (
                     id={book.id}
                     title={book.title}
                     authors={book.authors}
-                    bookCover={book.imageLinks.smallThumbnail}
+                    bookCover={book.imageLinks && book.imageLinks.smallThumbnail}
                     shelf={book.shelf}
                     book={book}
                     changeShelf={props.changeShelf}
